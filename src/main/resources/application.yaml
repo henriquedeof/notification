@@ -1,68 +1,94 @@
-server:
-    port: 8084
-    servlet:
-        context-path: '/dl-notification/'
-
+# ================================================================================================================================
+# The configurations below are used to connect to the Config Server (dl-config-server) and get the configurations from the dl-config-server-repo.
+# The configurations are stored in the dl-config-server-repo in the dl-notification-service.properties file.
+# ================================================================================================================================
 spring:
     application:
-        name: dl-notification-service
+#        name: dl-notification-service # henrique: For some reason the application name is not set as dl-notification-service in the application.yaml file.
+        name: notification
     config:
         # The 'configserver:' is used to tell the application to look for the configurations in the Config Server.
         # The 'optional' prefix is used to tell the application that if the Config Server is not available, it should use the configurations in this application.yaml file (need to uncomment them).
-#        import:  'optional:configserver:'
-         import: 'configserver:'
+        # import:  'optional:configserver:'
+        import: 'configserver:'
     cloud:
         config:
             discovery:
                 serviceId: dl-config-server
-    datasource:
-        url:  jdbc:postgresql://localhost:5432/dl-notification-v2
-        username: postgres
-        password: root
-    jpa:
-        hibernate:
-            ddl-auto: update
-            dialect: org.hibernate.dialect.PostgreSQLDialect
-            jdbc:
-                lob.non-contextual-creation: true
-        properties:
-            hibernate:
-                show_sql: true
-    output:
-        ansi:
-            enabled: Always
-    rabbitmq:
-        addresses: amqps://dsvvfanu:4FhHf07AACm8Gv1-SoWH337wGN6zGi1P@possum.lmq.cloudamqp.com/dsvvfanu
+            # The username and password are used to access the Config Server (basic authentication) as it is now using Spring Security.
+            username: admin
+            password: 'admin'
 
-logging:
-    level:
-        com.xpto.distancelearning: TRACE
-        org.springframework.core.env: DEBUG
-        root: INFO
-        org.springframework.web: DEBUG
-        org.hibernate: INFO
 
-dl:
-    broker:
-        exchange:
-            notificationCommandExchange: dl.notificationcommand
-        queue:
-            notificationCommandQueue:
-                name: dl.notificationcommand.ms.notification
-        key:
-            notificationCommandKey: ms.notification
-
-management:
-    endpoints:
-        web:
-            exposure:
-                include:
-                    - refresh
-                    - health
-
-eureka:
-    client:
-        serviceUrl:
-            defaultZone: 'http://localhost:8761/eureka'
-    instance:
-        hostname: localhost
+# ================================================================================================================================
+# All configurations below are commented as I am using the configs from the dl-config-server-repo (Global Config Pattern).
+# These were the initial configurations before I started using the dl-config-server-repo.
+# ================================================================================================================================
+#server:
+#    port: 8084
+#    servlet:
+#        context-path: '/dl-notification/'
+#
+#spring:
+#    application:
+#        name: dl-notification-service
+#    config:
+#        # The 'configserver:' is used to tell the application to look for the configurations in the Config Server.
+#        # The 'optional' prefix is used to tell the application that if the Config Server is not available, it should use the configurations in this application.yaml file (need to uncomment them).
+#        import:  'optional:configserver:'
+##         import: 'configserver:'
+#    cloud:
+#        config:
+#            discovery:
+#                serviceId: dl-config-server
+#    datasource:
+#        url:  jdbc:postgresql://localhost:5432/dl-notification-v2
+#        username: postgres
+#        password: root
+#    jpa:
+#        hibernate:
+#            ddl-auto: update
+#            dialect: org.hibernate.dialect.PostgreSQLDialect
+#            jdbc:
+#                lob.non-contextual-creation: true
+#        properties:
+#            hibernate:
+#                show_sql: true
+#    output:
+#        ansi:
+#            enabled: Always
+#    rabbitmq:
+#        addresses: amqps://dsvvfanu:4FhHf07AACm8Gv1-SoWH337wGN6zGi1P@possum.lmq.cloudamqp.com/dsvvfanu
+#
+#logging:
+#    level:
+#        com.xpto.distancelearning: TRACE
+#        org.springframework.core.env: DEBUG
+#        root: INFO
+#        org.springframework.web: DEBUG
+#        org.hibernate: INFO
+#
+#dl:
+#    broker:
+#        exchange:
+#            notificationCommandExchange: dl.notificationcommand
+#        queue:
+#            notificationCommandQueue:
+#                name: dl.notificationcommand.ms.notification
+#        key:
+#            notificationCommandKey: ms.notification
+#
+#management:
+#    endpoints:
+#        web:
+#            exposure:
+#                include:
+#                    - refresh
+#                    - health
+#
+#eureka:
+#    client:
+#        serviceUrl:
+#            defaultZone: 'http://localhost:8761/eureka'
+#    instance:
+#        hostname: localhost
