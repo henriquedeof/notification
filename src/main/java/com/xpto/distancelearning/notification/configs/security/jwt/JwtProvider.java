@@ -28,6 +28,7 @@ public class JwtProvider {
 
         return Jwts.parser()
                 // .setSigningKey(jwtSecret) // deprecated method
+//                .signWith(Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharset.UTF_8)), SignatureAlgorithm.HS512).build // Used by Michelli.
                 .verifyWith(getSecretKey())
                 .build()
                 .parseSignedClaims(token)
@@ -45,6 +46,7 @@ public class JwtProvider {
 
         return Jwts.parser()
                 // .setSigningKey(jwtSecret) // deprecated method
+//                .signWith(Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharset.UTF_8)), SignatureAlgorithm.HS512).build // Used by Michelli.
                 .verifyWith(getSecretKey())
                 .build()
                 .parseSignedClaims(token)
