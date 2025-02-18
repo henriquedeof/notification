@@ -7,7 +7,10 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface NotificationService {
+// For sealed interface, I need to set the class that will implement the interface, and this class must be in the same package level as the interface.
+// I also need to make the NotificationServiceImpl class as final or non-sealed.
+// The sealed interface is a feature that allows us to restrict which classes can implement an interface.
+public sealed interface NotificationService permits NotificationServiceImpl {
 
     NotificationModel saveNotification(NotificationModel notificationModel);
 

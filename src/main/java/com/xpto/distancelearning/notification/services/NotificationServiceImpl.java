@@ -1,9 +1,8 @@
-package com.xpto.distancelearning.notification.services.impl;
+package com.xpto.distancelearning.notification.services;
 
 import com.xpto.distancelearning.notification.enums.NotificationStatus;
 import com.xpto.distancelearning.notification.models.NotificationModel;
 import com.xpto.distancelearning.notification.repositories.NotificationRepository;
-import com.xpto.distancelearning.notification.services.NotificationService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class NotificationServiceImpl implements NotificationService {
+public non-sealed class NotificationServiceImpl implements NotificationService { // I can use final or non-sealed here
 
     private final NotificationRepository notificationRepository;
 
